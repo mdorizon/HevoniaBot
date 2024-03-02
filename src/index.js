@@ -14,15 +14,12 @@ client.on('ready', (c) => {
   console.log(` ${c.user.displayName} est en ligne !`);
 });
 
-client.on('messageCreate', (message) => {
-  if (message.author.bot) {
-    return;
-  }
+client.on('interactionCreate', (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
 
-  if (message.content.toLowerCase() == 'bonjour') {
-    message.reply('bonjour');
-    message.react('⚡');
+  if (interaction.commandName === 'ping') {
+    interaction.reply('pong !');
   }
-});
+})
 
 client.login(process.env.TOKEN);
